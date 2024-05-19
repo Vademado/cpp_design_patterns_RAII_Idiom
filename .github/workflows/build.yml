@@ -25,7 +25,8 @@ jobs:
           dir
           tree _build
           mkdir artifacts
-          mv _build/Release/RAII_Idiom_Project.exe artifacts
+          copy _build/Release/RAII_Idiom_Project.exe artifacts
+          mv _build artifacts
       
       - name: Archive artifacts
         uses: actions/upload-artifact@v4
