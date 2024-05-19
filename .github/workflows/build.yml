@@ -15,14 +15,24 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+         
       - name: Configure CMake
         run: cmake -B_build
-
+        
       - name: Build project
-        run: cmake --build _build --config Release
-
-
+        run: |
+          cmake --build _build --config Release
+          dir
+          tree _build
+          mkdir artifacts
+          mv _build/Release/RAII_Idiom_Project.exe artifacts
+      
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifacts
+          path: artifacts
+        
   test:
     runs-on: ubuntu-latest
 
@@ -40,9 +50,3 @@ jobs:
 
     - name: Tests
       run:  _build/check
-
-    - name: Archive artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: artifacts
-        path: artifacts
